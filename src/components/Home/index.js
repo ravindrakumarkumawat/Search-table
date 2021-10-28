@@ -123,6 +123,7 @@ const Home = () => {
             placeholder="Search by..."
             enterButton
             onSearch={search}
+            onChange={(e) => search(e.target.value)}
           />
         </Col>
       </Row>
