@@ -87,8 +87,13 @@ const Home = () => {
     console.log("PASS", { value });
 
     const filterTable = data.filter((o) =>
-      Object.keys(o).some((k) =>
-        String(o[k]).toLowerCase().includes(value.toLowerCase())
+      Object.keys(o).some((k) =>{
+        // console.log(Object.keys(o[k]))
+        if(Object.keys(o[k]).length === 5) {
+         return Object.values(o[k]).join('').toLowerCase().includes(value.toLowerCase())
+        }
+        return String(o[k]).toLowerCase().includes(value.toLowerCase())
+      }
       )
     );
 
@@ -258,11 +263,3 @@ const Home = () => {
 
 export default Home;
 
-// {
-//   "website": "hildegard.org",
-//   "company": {
-//   "name": "Romaguera-Crona",
-//   "catchPhrase": "Multi-layered client-server neural-net",
-//   "bs": "harness real-time e-markets"
-//   }
-//   }
