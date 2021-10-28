@@ -11,6 +11,9 @@ import {
 } from "antd";
 import React, { useState, useEffect } from "react";
 import AntdTable from "../common/AntdTable";
+import { ExclamationCircleOutlined } from '@ant-design/icons';
+
+const { confirm } = Modal;
 
 const { Text } = Typography;
 
@@ -53,7 +56,7 @@ const Home = () => {
           <Button
             danger
             style={{ cursor: "pointer" }}
-            onClick={() => handleDelete(record)}
+            onClick={() => showConfirm(record)}
           >
             {" "}
             Delete{" "}
@@ -112,6 +115,20 @@ const Home = () => {
     setIsModalVisible(false);
     setViewData({});
   };
+
+  const showConfirm = (record) => {
+    confirm({
+      title: 'Do you Want to delete these items?',
+      icon: <ExclamationCircleOutlined />,
+      content: 'Some descriptions',
+      onOk() {
+        handleDelete(record)
+      },
+      onCancel() {
+        console.log('Cancel');
+      },
+    });
+  }
 
   return (
     <>
