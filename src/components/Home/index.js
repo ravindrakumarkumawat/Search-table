@@ -132,6 +132,7 @@ const Home = () => {
           <AntdTable
             dataSource={filteredData.length === 0 ? data : filteredData}
             columns={columns}
+            scroll={{ y: 440 }}
           />
         </Col>
       </Row>

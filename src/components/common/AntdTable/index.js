@@ -4,11 +4,12 @@ import React from 'react'
 const AntdTable = ({
   dataSource,
   columns,
-  bordered=false
+  bordered=false, 
+  scroll
 }) => {
   return (
     <div>
-      <Table dataSource={dataSource} columns={columns}/>
+      <Table dataSource={dataSource} columns={columns} scroll={scroll}/>
     </div>
   )
 }
