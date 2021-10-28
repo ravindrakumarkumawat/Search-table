@@ -84,11 +84,8 @@ const Home = () => {
   };
 
   const search = (value) => {
-    console.log("PASS", { value });
-
     const filterTable = data.filter((o) =>
       Object.keys(o).some((k) =>{
-        // console.log(Object.keys(o[k]))
         if(Object.keys(o[k]).length === 5) {
          return Object.values(o[k]).join('').toLowerCase().includes(value.toLowerCase())
         }
@@ -101,7 +98,6 @@ const Home = () => {
   };
 
   const handleDelete = (record) => {
-    // console.log(record)
     setData([...data.filter((v) => v.id !== record.id)]);
     message.success("User is deleted!");
   };
