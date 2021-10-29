@@ -6,16 +6,16 @@ import {
   Button,
   Modal,
   message,
-  Typography,
   Divider,
 } from "antd";
 import React, { useState, useEffect } from "react";
 import AntdTable from "../common/AntdTable";
-import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { ExclamationCircleOutlined } from "@ant-design/icons";
+import AntdRow from "../common/AntdRow";
+import AntdCol from "../common/AntdCol";
+import AntdText from "../common/AntdText";
 
 const { confirm } = Modal;
-
-const { Text } = Typography;
 
 const Home = () => {
   const columns = [
@@ -58,8 +58,7 @@ const Home = () => {
             style={{ cursor: "pointer" }}
             onClick={() => showConfirm(record)}
           >
-            {" "}
-            Delete{" "}
+            Delete
           </Button>
         </Space>
       ),
@@ -88,13 +87,15 @@ const Home = () => {
 
   const search = (value) => {
     const filterTable = data.filter((o) =>
-      Object.keys(o).some((k) =>{
-        if(Object.keys(o[k]).length === 5) {
-         return Object.values(o[k]).join('').toLowerCase().includes(value.toLowerCase())
+      Object.keys(o).some((k) => {
+        if (Object.keys(o[k]).length === 5) {
+          return Object.values(o[k])
+            .join("")
+            .toLowerCase()
+            .includes(value.toLowerCase());
         }
-        return String(o[k]).toLowerCase().includes(value.toLowerCase())
-      }
-      )
+        return String(o[k]).toLowerCase().includes(value.toLowerCase());
+      })
     );
 
     setFilteredData(filterTable);
@@ -118,17 +119,17 @@ const Home = () => {
 
   const showConfirm = (record) => {
     confirm({
-      title: 'Do you Want to delete this user?',
+      title: "Do you Want to delete this user?",
       icon: <ExclamationCircleOutlined />,
       // content: 'Some descriptions',
       onOk() {
-        handleDelete(record)
+        handleDelete(record);
       },
       onCancel() {
-        console.log('Cancel');
+        console.log("Cancel");
       },
     });
-  }
+  };
 
   return (
     <>
@@ -160,119 +161,91 @@ const Home = () => {
         footer={null}
         onCancel={handleCancel}
       >
-        <Row style={{ marginLeft: "0", marginRight: "0" }}>
-          <Col span={12} style={{ paddingLeft: "0", paddingRight: "0" }}>
-            <Space direction="vertical">
-              <Text strong>Name</Text>
-              <Text type="secondary">{viewData.name}</Text>
-            </Space>{" "}
-          </Col>
-          <Col span={12} style={{ paddingLeft: "0", paddingRight: "0" }}>
-            <Space direction="vertical">
-              <Text strong>Username</Text>
-              <Text type="secondary">{viewData.username}</Text>
-            </Space>{" "}
-          </Col>
-        </Row>
-        <Row style={{ marginTop: ".5rem", marginLeft: "0", marginRight: "0" }}>
-          <Col span={12} style={{ paddingLeft: "0", paddingRight: "0" }}>
-            <Space direction="vertical">
-              <Text strong>Email</Text>
-              <Text type="secondary">{viewData.email}</Text>
-            </Space>{" "}
-          </Col>
-          <Col span={12} style={{ paddingLeft: "0", paddingRight: "0" }}>
-            <Space direction="vertical">
-              <Text strong>Phone</Text>
-              <Text type="secondary">{viewData.phone}</Text>
-            </Space>{" "}
-          </Col>
-        </Row>
+        <AntdRow>
+          <AntdCol span={12}>
+            <AntdText title={"Name"} subtitle={viewData.name} />
+          </AntdCol>
+          <AntdCol span={12}>
+            <AntdText title={"Username"} subtitle={viewData.username} />
+          </AntdCol>
+        </AntdRow>
+        <AntdRow marginTop={".5rem"}>
+          <AntdCol span={12}>
+            <AntdText title={"Email"} subtitle={viewData.email} />
+          </AntdCol>
+          <AntdCol span={12}>
+            <AntdText title={"Phone"} subtitle={viewData.phone} />
+          </AntdCol>
+        </AntdRow>
         <Divider />
-        <Row style={{ marginLeft: "0", marginRight: "0" }}>
-          <Col span={12} style={{ paddingLeft: "0", paddingRight: "0" }}>
-            <Space direction="vertical">
-              <Text strong>Address</Text>
-            </Space>{" "}
-          </Col>
-        </Row>
-        <Row style={{ marginTop: ".5rem", marginLeft: "0", marginRight: "0" }}>
-          <Col span={6} style={{ paddingLeft: "0", paddingRight: "0" }}>
-            <Space direction="vertical">
-              <Text strong>Suite</Text>
-              <Text type="secondary">
-                {viewData.address ? viewData.address.suite : ""}
-              </Text>
-            </Space>{" "}
-          </Col>
-          <Col span={6} style={{ paddingLeft: "0", paddingRight: "0" }}>
-            <Space direction="vertical">
-              <Text strong>City</Text>
-              <Text type="secondary">
-                {viewData.address ? viewData.address.city : ""}
-              </Text>
-            </Space>{" "}
-          </Col>
-          <Col span={6} style={{ paddingLeft: "0", paddingRight: "0" }}>
-            <Space direction="vertical">
-              <Text strong>Zipcode</Text>
-              <Text type="secondary">
-                {viewData.address ? viewData.address.zipcode : ""}
-              </Text>
-            </Space>{" "}
-          </Col>
-          <Col span={3} style={{ paddingLeft: "0", paddingRight: "0" }}>
-            <Space direction="vertical">
-              <Text strong>Lat.</Text>
-              <Text type="secondary">
-                {viewData.address ? viewData.address.geo.lat : ""}
-              </Text>
-            </Space>{" "}
-          </Col>
-          <Col span={3} style={{ paddingLeft: "0", paddingRight: "0" }}>
-            <Space direction="vertical">
-              <Text strong>Lng.</Text>
-              <Text type="secondary">
-                {viewData.address ? viewData.address.geo.lng : ""}
-              </Text>
-            </Space>{" "}
-          </Col>
-        </Row>
+        <AntdRow>
+          <AntdCol span={12}>
+            <AntdText title={"Address"} />
+          </AntdCol>
+        </AntdRow>
+        <AntdRow marginTop={".5rem"}>
+          <AntdCol span={6}>
+            <AntdText
+              title={"Suite"}
+              subtitle={viewData.address ? viewData.address.suite : ""}
+            />
+          </AntdCol>
+          <AntdCol span={6}>
+            <AntdText
+              title={"City"}
+              subtitle={viewData.address ? viewData.address.city : ""}
+            />
+          </AntdCol>
+          <AntdCol span={6}>
+            <AntdText
+              title={"Zipcode"}
+              subtitle={viewData.address ? viewData.address.zipcode : ""}
+            />
+          </AntdCol>
+          <AntdCol span={3}>
+            <AntdText
+              title={"Lat."}
+              subtitle={viewData.address ? viewData.address.geo.lat : ""}
+            />
+          </AntdCol>
+          <AntdCol span={3}>
+            <AntdText
+              title={"lng."}
+              subtitle={viewData.address ? viewData.address.geo.lng : ""}
+            />
+          </AntdCol>
+        </AntdRow>
         <Divider />
-        <Row style={{ marginLeft: "0", marginRight: "0" }}>
-          <Col span={12} style={{ paddingLeft: "0", paddingRight: "0" }}>
-            <Space direction="vertical">
-              <Text strong>Company</Text>
-              <Text type="secondary">{viewData.company ? viewData.company.name : ''}</Text>
-            </Space>{" "}
-          </Col>
-          <Col span={12} style={{ paddingLeft: "0", paddingRight: "0" }}>
-            <Space direction="vertical">
-              <Text strong>Website</Text>
-              <Text type="secondary">{viewData.website}</Text>
-            </Space>{" "}
-          </Col>
-        </Row>
-        <Row style={{ marginTop: ".5rem", marginLeft: "0", marginRight: "0" }}>
-        <Col span={24} style={{ paddingLeft: "0", paddingRight: "0" }}>
-          <Space direction="vertical">
-            <Text strong>Catch phrase</Text>
-            <Text type="secondary">{viewData.company ? viewData.company.catchPhrase : ''}</Text>
-          </Space>{" "}
-        </Col>
-      </Row>
-      <Row style={{ marginTop: ".5rem", marginLeft: "0", marginRight: "0", marginBottom: ".5rem" }}>
-        <Col span={24} style={{ paddingLeft: "0", paddingRight: "0" }}>
-          <Space direction="vertical">
-            <Text strong>BS</Text>
-            <Text type="secondary">{viewData.company ? viewData.company.bs : ''}</Text>
-          </Space>{" "}
-        </Col>
-      </Row>
+        <AntdRow>
+          <AntdCol span={12}>
+            <AntdText
+              title={"Company"}
+              subtitle={viewData.company ? viewData.company.name : ""}
+            />
+          </AntdCol>
+          <AntdCol span={12}>
+            <AntdText title={"Website"} subtitle={viewData.website} />
+          </AntdCol>
+        </AntdRow>
+        <AntdRow marginTop={".5rem"}>
+          <AntdCol span={24}>
+            <AntdText
+              title={"Catch phrase"}
+              subtitle={viewData.company ? viewData.company.catchPhrase : ""}
+            />
+          </AntdCol>
+        </AntdRow>
+        <AntdRow marginTop={".5rem"}>
+          <AntdCol span={24}>
+            <AntdText
+              title={"BS"}
+              subtitle={viewData.company ? viewData.company.bs : ""}
+            />
+          </AntdCol>
+        </AntdRow>
       </Modal>
     </>
   );
 };
 
 export default Home;
-
